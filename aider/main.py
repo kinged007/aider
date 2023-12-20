@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 from pathlib import Path
+import json
 
 import configargparse
 import git
@@ -186,6 +187,12 @@ def main(argv=None, input=None, output=None, force_git_root=None):
         "--openai-api-base",
         metavar="OPENAI_API_BASE",
         help="Specify the api base url",
+    )
+    # Allow custom headers to be passed to the OpenAI client, in JSON format
+    model_group.add_argument(
+        "--openai-headers",
+        metavar="OPENAI_HEADERS",
+        help="Specify custom JSON headers to use with the custom api base url",
     )
     model_group.add_argument(
         "--openai-api-type",
@@ -521,6 +528,9 @@ def main(argv=None, input=None, output=None, force_git_root=None):
                     "HTTP-Referer": "http://aider.chat",
                     "X-Title": "Aider",
                 }
+            if args.openai_headers:
+                kwargs["default_headers"] = json.loads(args.openai_headers)
+
 
         client = openai.OpenAI(api_key=args.openai_api_key, **kwargs)
 

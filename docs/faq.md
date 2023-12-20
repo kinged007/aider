@@ -150,6 +150,11 @@ Here are some [GitHub issues which may contain relevant information](https://git
 
 If you can make the model accessible via an OpenAI compatible API,
 you can use `--openai-api-base` to connect to a different API endpoint.
+You can now pass specific headers in JSON format, to your different API endpoint using `--openai-headers`. 
+eg. 
+```
+aider --openai-api-base "https://proxy.pezzo.ai/openai/v1" --openai-headers '{"X-Pezzo-Api-Key": "<Your API Key>","X-Pezzo-Project-Id": "<Your Project ID>","X-Pezzo-Environment": "Development"}'
+```
 
 ### Local LLMs
 
